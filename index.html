@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show do Milhão - Desafio 1</title>
+    <link rel="shortcut icon" href="https://cdn.jsdelivr.net/npm/twemoji@11.3.0/2/svg/1f4ac.svg" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background-image: url("https://lh3.google.com/u/1/d/1DSubOk4gytMgfqh269P6MdEWQJbiUus9=w1669-h980-iv2");
+            background-color: #192aa3;
+            background-size: cover;
+            background-position: center;
+        }
+
+        main {
+            display: flex;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        section {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            text-shadow: 2px 2px black;
+        }
+
+        .spaceleft {
+            margin-left: -50vw;
+            padding-left: 50vw;
+        }
+
+        .bgred {
+            background-image: linear-gradient(40deg, #761F12 30%, #9E2D28, #E84035, #A62A24, #741A16, #912621);
+        }
+
+        .bgselection {
+            animation: blinking 2s;
+        }
+
+        #timer {
+            font-family: 'Nova Mono', monospace;
+            text-shadow: none;
+        }
+
+        @media screen and (orientation: portrait) {
+            main {
+                font-size: 2.4vh;
+            }
+
+            section {
+                max-height: 50vh;
+            }
+
+            .tamanhologo {
+                width: 30vw;
+            }
+        }
+
+        @media screen and (orientation: landscape) {
+            main {
+                font-size: 2vw;
+                flex-direction: row;
+            }
+
+            section {
+                max-width: 50vw;
+            }
+
+            .tamanhologo {
+                width: 30vh;
+            }
+        }
+
+        @keyframes blinking {
+            0% {
+                background-color: transparent;
+            }
+
+            10% {
+                background-color: #198754;
+            }
+
+            20% {
+                background-color: transparent;
+            }
+
+            30% {
+                background-color: #198754;
+            }
+
+            40% {
+                background-color: transparent;
+            }
+
+            50% {
+                background-color: #198754;
+            }
+
+            60% {
+                background-color: transparent;
+            }
+
+            70% {
+                background-color: #198754;
+            }
+
+            80% {
+                background-color: transparent;
+            }
+
+            90% {
+                background-color: #198754;
+            }
+
+            100% {
+                background-color: transparent;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header text-bg-dark">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Show do Milhão - Desafio 1</h1>
+                </div>
+                <div class="modal-body text-bg-dark">
+                    <p>Bem vindo(a), são 3 perguntas e no final o resultado.</p>
+                    <p>Desenvolvido por Claudio Marques Programador.</p>
+                    <div>
+                        <label for="formFile" class="form-label">Enviar Foto</label>
+                        <input class="form-control" type="file" name="" id="formFile">
+                    </div>
+                </div>
+                <div class="modal-footer text-bg-dark">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal" disabled>Você está certo(a)
+                        disso?</button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Sim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="d-none">
+        <section class="justify-content-center my-auto">
+            <picture>
+                <img class="tamanhologo d-block img-fluid mx-auto"
+                    src="https://lh3.google.com/u/1/d/1XynjvwfVQPlswP7JuIB-EQizmFiOTTxe=w1920-h980-iv2" alt="Logo">
+            </picture>
+            <div id="page1" class="container-fluid d-flex align-items-center fst-italic">
+                <div class="card bg-transparent text-light mx-auto border border-0">
+                    <div id="text1" class="spaceleft bgred card-header mb-2 rounded border"></div>
+                    <div class="card-body p-0">
+                        <form>
+                            <div class="bgred form-check mb-2 rounded border">
+                                <input onclick="capture1(this)" class="form-check-input" type="radio" name="answer"
+                                    id="answer1" value="option1">
+                                <label id="text2" class="form-check-label" for="resposta1"></label>
+                            </div>
+                            <div class="bgred form-check mb-2 rounded border">
+                                <input onclick="capture1(this)" class="form-check-input" type="radio" name="answer"
+                                    id="answer2" value="option2">
+                                <label id="text3" class="form-check-label" for="resposta2"></label>
+                            </div>
+                            <div class="bgred form-check mb-2 rounded border">
+                                <input onclick="capture1(this)" class="form-check-input" type="radio" name="answer"
+                                    id="answer3" value="option3">
+                                <label id="text4" class="form-check-label" for="resposta3"></label>
+                            </div>
+                            <div class="bgred form-check rounded border">
+                                <input onclick="capture1(this)" class="form-check-input" type="radio" name="answer"
+                                    id="answer4" value="option4">
+                                <label id="text5" class="form-check-label" for="resposta4"></label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="page2" class="container-fluid d-none align-items-center fst-italic">
+                <div class="card bg-transparent text-light mx-auto border border-0">
+                    <div id="text6" class="spaceleft bgred card-header mb-2 rounded border"></div>
+                    <div class="card-body p-0">
+                        <form>
+                            <div class="bgred form-check mb-2 rounded border">
+                                <input onclick="capture2(this)" class="form-check-input" type="radio" name="answer2"
+                                    id="answer5" value="option5">
+                                <label id="text7" class="form-check-label" for="resposta5"></label>
+                            </div>
+                            <div class="bgred form-check mb-2 rounded border">
+                                <input onclick="capture2(this)" class="form-check-input" type="radio" name="answer2"
+                                    id="answer6" value="option6">
+                                <label id="text8" class="form-check-label" for="resposta6"></label>
+                            </div>
+                            <div class="bgred form-check mb-2 rounded border">
+                                <input onclick="capture2(this)" class="form-check-input" type="radio" name="answer2"
+                                    id="answer7" value="option7">
+                                <label id="text9" class="form-check-label" for="resposta7"></label>
+                            </div>
+                            <div class="bgred form-check rounded border">
+                                <input onclick="capture2(this)" class="form-check-input" type="radio" name="answer2"
+                                    id="answer8" value="option8">
+                                <label id="text10" class="form-check-label" for="resposta10"></label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="page3" class="container-fluid d-none align-items-center fst-italic">
+                <div class="card bg-transparent text-light mx-auto border border-0">
+                    <div id="text11" class="spaceleft bgred card-header mb-2 rounded border"></div>
+                    <div class="card-body p-0">
+                        <form>
+                            <div class="bgred form-check mb-2 rounded border">
+                                <input onclick="capture3(this)" class="form-check-input" type="radio" name="answer3"
+                                    id="answer9" value="option9">
+                                <label id="text12" class="form-check-label" for="resposta11"></label>
+                            </div>
+                            <div class="bgred form-check mb-2 rounded border">
+                                <input onclick="capture3(this)" class="form-check-input" type="radio" name="answer3"
+                                    id="answer10" value="option10">
+                                <label id="text13" class="form-check-label" for="resposta12"></label>
+                            </div>
+                            <div class="bgred form-check mb-2 rounded border">
+                                <input onclick="capture3(this)" class="form-check-input" type="radio" name="answer3"
+                                    id="answer11" value="option11">
+                                <label id="text14" class="form-check-label" for="resposta13"></label>
+                            </div>
+                            <div class="bgred form-check rounded border">
+                                <input onclick="capture3(this)" class="form-check-input" type="radio" name="answer3"
+                                    id="answer12" value="option12">
+                                <label id="text15" class="form-check-label" for="resposta14"></label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="page4" class="container-fluid d-none align-items-center fst-italic">
+                <div class="card bg-transparent text-light mx-auto border border-0">
+                    <div class="spaceleft bgred card-header mb-2 rounded border">TOTAL DE RESPOSTAS CERTAS</div>
+                    <div class="card-body p-0">
+                        <form>
+                            <div id="answer17" class="bgred form-check mb-2 rounded border">
+                                <input class="form-check-input opacity-100" type="radio" name="answer4" id="answer13"
+                                    value="option13" disabled>
+                                <label class="form-check-label opacity-100" for="resposta15">3</label>
+                            </div>
+                            <div id="answer18" class="bgred form-check mb-2 rounded border">
+                                <input class="form-check-input opacity-100" type="radio" name="answer4" id="answer14"
+                                    value="option14" disabled>
+                                <label class="form-check-label opacity-100" for="resposta16">2</label>
+                            </div>
+                            <div id="answer19" class="bgred form-check mb-2 rounded border">
+                                <input class="form-check-input opacity-100" type="radio" name="answer4" id="answer15"
+                                    value="option15" disabled>
+                                <label class="form-check-label opacity-100" for="resposta16">1</label>
+                            </div>
+                            <div id="answer20" class="bgred form-check rounded border">
+                                <input class="form-check-input opacity-100" type="radio" name="answer4" id="answer16"
+                                    value="option16" disabled>
+                                <label class="form-check-label opacity-100" for="resposta17">0</label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <audio id="background-music" class="d-none" controls="false" loop>
+                <source src="https://memes.casa/audios/silvio-santos-abertura-show-do-milhao.mp3" type="audio/mp3">
+            </audio>
+        </section>
+        <section id="person" class="align-items-center mx-auto">
+            <img id="silvinho" class="d-flex img-fluid mh-100 mx-auto my-auto"
+                src="https://lh3.google.com/u/1/d/1Hd1JyXALgM6h4cgxyUdXsu0gW-wdNHG2=w960-h957-iv2" alt="Silvinho">
+            <div class="position-absolute bottom-0 end-0 h1 p-2 text-danger bg-dark border border-danger mb-0 d-block"
+                id="timer">99
+            </div>
+            <div class="position-absolute bottom-0 end-0 bg-dark border border-danger mb-0 d-none" id="reload"><button
+                    onclick="location.reload()" type="button" class="btn text-danger bg-dark">REINICIAR</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const question1 = ["DOMINGO", "SEGUNDA-FEIRA", "QUINTA-FEIRA", "TERÇA-FEIRA", 'UM AMIGO DISSE: "SE ONTEM FOSSE AMANHÃ, HOJE SERIA SEXTA-FEIRA!". EM QUE DIA DA SEMANA O AMIGO DISSE ISSO?'];
+        const question2 = ["4", "3", "7", "5", "QUANTAS PESSOAS SÃO? VERA, MINHA PRIMA; LUIZ, MEU TIO; SILVIA, MINHA IRMÃ, E EU."];
+        const question3 = ["DIA 26", "DIA 25", "DIA 24", "DIA 23", "SE O DIA ANTERIOR A ONTEM É O DIA 21, QUE DIA É O DIA DEPOIS DE DEPOIS DE AMANHÃ?"];
+        var radioInputs = document.querySelectorAll('input[type="radio"]');
+        let hit = 0;
+        var countdown = 99;
+
+        function startCountdown() {
+            countdownInterval = setInterval(function () {
+                countdown--;
+                document.querySelector("#timer").textContent = countdown;
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    location.reload();
+                }
+            }, 900);
+        };
+
+        window.addEventListener("load", (event) => {
+            var myModal = new bootstrap.Modal(document.querySelector("#staticBackdrop"), {});
+            myModal.show();
+            const myModalEl = document.querySelector("#staticBackdrop");
+            myModalEl.addEventListener("hidden.bs.modal", event => {
+                document.querySelector("main").classList.remove("d-none");
+                document.querySelector("main").classList.add("d-flex");
+                startCountdown();
+                var audio = document.getElementById('background-music');
+                audio.play();
+            });
+            addquestion1();
+        });
+
+        function addquestion1() {
+            document.querySelector("#text1").innerHTML = question1[4];
+            let firstFourElements = question1.slice(0, 4);
+            for (let i = firstFourElements.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [firstFourElements[i], firstFourElements[j]] = [firstFourElements[j], firstFourElements[i]];
+            }
+            document.querySelector("#text2").textContent = firstFourElements[0];
+            document.querySelector("#answer1").value = firstFourElements[0];
+            document.querySelector("#text3").textContent = firstFourElements[1];
+            document.querySelector("#answer2").value = firstFourElements[1];
+            document.querySelector("#text4").textContent = firstFourElements[2];
+            document.querySelector("#answer3").value = firstFourElements[2];
+            document.querySelector("#text5").textContent = firstFourElements[3];
+            document.querySelector("#answer4").value = firstFourElements[3];
+        };
+
+        function capture1(element1) {
+            var radios = document.getElementsByName("answer");
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    radios[i].disabled = false;
+                } else {
+                    radios[i].disabled = true;
+                }
+            };
+            let content1 = element1.value;
+            if (content1 == question1[0]) {
+                hit++;
+                setTimeout(function () {
+                    document.querySelector("#page1").classList.remove("d-flex");
+                    document.querySelector("#page1").classList.add("d-none");
+                    addquestion2();
+                    document.querySelector("#page2").classList.remove("d-none");
+                    document.querySelector("#page2").classList.add("d-flex");
+                }, 1000);
+            } else {
+                setTimeout(function () {
+                    document.querySelector("#page1").classList.remove("d-flex");
+                    document.querySelector("#page1").classList.add("d-none");
+                    addquestion2();
+                    document.querySelector("#page2").classList.remove("d-none");
+                    document.querySelector("#page2").classList.add("d-flex");
+                }, 1000);
+            }
+        };
+
+        function addquestion2() {
+            document.querySelector("#text6").innerHTML = question2[4];
+            let firstFourElements = question2.slice(0, 4);
+            for (let i = firstFourElements.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [firstFourElements[i], firstFourElements[j]] = [firstFourElements[j], firstFourElements[i]];
+            }
+            document.querySelector("#text7").textContent = firstFourElements[0];
+            document.querySelector("#answer5").value = firstFourElements[0];
+            document.querySelector("#text8").textContent = firstFourElements[1];
+            document.querySelector("#answer6").value = firstFourElements[1];
+            document.querySelector("#text9").textContent = firstFourElements[2];
+            document.querySelector("#answer7").value = firstFourElements[2];
+            document.querySelector("#text10").textContent = firstFourElements[3];
+            document.querySelector("#answer8").value = firstFourElements[3];
+        };
+
+        function capture2(element2) {
+            var radios = document.getElementsByName("answer2");
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    radios[i].disabled = false;
+                } else {
+                    radios[i].disabled = true;
+                }
+            };
+            let content2 = element2.value;
+            if (content2 == question2[0]) {
+                hit++;
+                setTimeout(function () {
+                    document.querySelector("#page2").classList.remove("d-flex");
+                    document.querySelector("#page2").classList.add("d-none");
+                    addquestion3();
+                    document.querySelector("#page3").classList.remove("d-none");
+                    document.querySelector("#page3").classList.add("d-flex");
+                }, 1000);
+            } else {
+                setTimeout(function () {
+                    document.querySelector("#page2").classList.remove("d-flex");
+                    document.querySelector("#page2").classList.add("d-none");
+                    addquestion3();
+                    document.querySelector("#page3").classList.remove("d-none");
+                    document.querySelector("#page3").classList.add("d-flex");
+                }, 1000);
+            }
+        };
+
+        function addquestion3() {
+            document.querySelector("#text11").innerHTML = question3[4];
+            let firstFourElements = question3.slice(0, 4);
+            for (let i = firstFourElements.length - 1; i > 0; i--) {
+                let j = Math.floor(Math.random() * (i + 1));
+                [firstFourElements[i], firstFourElements[j]] = [firstFourElements[j], firstFourElements[i]];
+            }
+            document.querySelector("#text12").textContent = firstFourElements[0];
+            document.querySelector("#answer9").value = firstFourElements[0];
+            document.querySelector("#text13").textContent = firstFourElements[1];
+            document.querySelector("#answer10").value = firstFourElements[1];
+            document.querySelector("#text14").textContent = firstFourElements[2];
+            document.querySelector("#answer11").value = firstFourElements[2];
+            document.querySelector("#text15").textContent = firstFourElements[3];
+            document.querySelector("#answer12").value = firstFourElements[3];
+        };
+
+        function capture3(element3) {
+            var radios = document.getElementsByName("answer3");
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    radios[i].disabled = false;
+                } else {
+                    radios[i].disabled = true;
+                }
+            };
+            clearInterval(countdownInterval);
+            let content3 = element3.value;
+            if (content3 == question3[0]) {
+                hit++;
+                setTimeout(function () {
+                    document.querySelector("#page3").classList.remove("d-flex");
+                    document.querySelector("#page3").classList.add("d-none");
+                    document.querySelector("#page4").classList.remove("d-none");
+                    document.querySelector("#page4").classList.add("d-flex");
+                }, 1000);
+            } else {
+                setTimeout(function () {
+                    document.querySelector("#page3").classList.remove("d-flex");
+                    document.querySelector("#page3").classList.add("d-none");
+                    document.querySelector("#page4").classList.remove("d-none");
+                    document.querySelector("#page4").classList.add("d-flex");
+                }, 1000);
+            };
+            if (hit == 3) {
+                document.querySelector("#answer13").checked = true;
+                document.querySelector("#answer17").classList.remove("bgred");
+                document.querySelector("#answer17").classList.add("bgselection");
+                setTimeout(function () {
+                    document.querySelector("#answer17").classList.remove("bgselection");
+                    document.querySelector("#answer17").classList.add("bg-success");
+                }, 2200);
+            } else if (hit == 2) {
+                document.querySelector("#answer14").checked = true;
+                document.querySelector("#answer18").classList.remove("bgred");
+                document.querySelector("#answer18").classList.add("bgselection");
+                setTimeout(function () {
+                    document.querySelector("#answer18").classList.remove("bgselection");
+                    document.querySelector("#answer18").classList.add("bg-success");
+                }, 2200);
+            } else if (hit == 1) {
+                document.querySelector("#answer15").checked = true;
+                document.querySelector("#answer19").classList.remove("bgred");
+                document.querySelector("#answer19").classList.add("bgselection");
+                setTimeout(function () {
+                    document.querySelector("#answer19").classList.remove("bgselection");
+                    document.querySelector("#answer19").classList.add("bg-success");
+                }, 2200);
+            } else {
+                document.querySelector("#answer16").checked = true;
+                document.querySelector("#answer20").classList.remove("bgred");
+                document.querySelector("#answer20").classList.add("bgselection");
+                setTimeout(function () {
+                    document.querySelector("#answer20").classList.remove("bgselection");
+                    document.querySelector("#answer20").classList.add("bg-success");
+                }, 2200);
+            }
+            setTimeout(function () {
+                document.querySelector("#reload").classList.remove("d-none");
+                document.querySelector("#reload").classList.add("d-flex");
+                document.querySelector("#timer").classList.remove("d-block");
+                document.querySelector("#timer").classList.add("d-none");
+            }, 2000);
+        };
+
+        function readImage1() {
+            if (this.files && this.files[0]) {
+                var file = new FileReader();
+                file.onload = function (e) {
+                    document.querySelector("#silvinho").src = e.target.result;
+                };
+                file.readAsDataURL(this.files[0]);
+            }
+        }
+        document.querySelector("#formFile").addEventListener("change", readImage1, false);
+
+        radioInputs.forEach(function (input) {
+            input.addEventListener("change", function () {
+                var currentInput = this;
+                currentInput.classList.remove("bgred");
+                currentInput.classList.add("bgselection");
+                setTimeout(function () {
+                    currentInput.classList.remove("bgselection");
+                    currentInput.classList.add("bg-success");
+                }, 2000);
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
